@@ -38,7 +38,7 @@ const MoviePage = () => {
     }
 
   return (
-     <div key={value.id} className='flex flex-col  h-max lg:h-screen bg-gradient-to-r from-slate-900 to-black text-white'>   
+     <div key={value.id} className='flex flex-col  h-max p-4 bg-gradient-to-r from-slate-900 to-black text-white'>   
          <h2 className='mt-5 text-4xl text-center'>{value.original_title}</h2>
          <div className='flex flex-col items-center mx-auto lg:flex-row justify-between gap-10 mt-5 '>   
          <div className='w-fit h-fit'>
