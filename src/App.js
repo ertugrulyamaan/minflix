@@ -16,6 +16,7 @@ function App() {
 const [searchValue,setSearchValue] = useState('') 
 const [searchMovies,setSearchMovies] = useState([]) 
 
+
 const searchData ={searchValue,searchMovies,setSearchValue,setSearchMovies}
   return (
     <>

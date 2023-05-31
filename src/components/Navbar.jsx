@@ -7,22 +7,26 @@ import request from '../Request'
 const Navbar = () => {
   const [toggle,setToggle] = useState(false)
   const navigate = useNavigate()
-  const{searchValue,setSearchValue,setSearchMovies} =  useContext(MainContext)
+  const{ searchValue,setSearchValue,setSearchMovies } =  useContext(MainContext)
 
   const handleToggle = () => {
     setToggle((prev)=>!prev)
   }
 
 
-
   const handleSubmit = async(e)=> {
     e.preventDefault()
     const {data:{results}} = await axios.get(`${request.requestSearch+searchValue}`)
     await setSearchMovies(results)
+    localStorage.setItem('searchMovies', JSON.stringify(results))
     navigate('/search')
     setSearchValue('')
   }
   
+  const handleSearch = (e) => {
+    setSearchValue(e.target.value)
+    localStorage.setItem('search', e.target.value)
+  }
 
 
   return (
@@ -34,13 +38,13 @@ const Navbar = () => {
           {toggle ? <BsToggleOn onClick={handleToggle} size={40} color='#fff'/>: <BsToggleOff onClick={handleToggle} size={40} color='#fff'/> }
           {toggle && (
               <form onSubmit={handleSubmit} className='absolute top-10 right-5 flex z-10 p-4 bg-slate-500/60 rounded'>
-                <input type='text' placeholder='Search movie...' className='rounded w-[125px] text-black' value={searchValue} onChange={(e)=>setSearchValue(e.target.value)}/>
+                <input type='text' placeholder='Search movie...' className='rounded w-[125px] text-black' value={searchValue} onChange={handleSearch}/>
                 <button type='submit' className='text-white ml-1 bg-gradient-to-b from-red-700 to-black px-1 border-transparent rounded'>Search</button>
             </form>
           )}
         </div>
         <form onSubmit={handleSubmit} className='sm:flex  gap-0 sm:gap-2 hidden '>
-          <input type='text' placeholder='Search movie...' className='rounded md:px-1 text-black' value={searchValue} onChange={(e)=>setSearchValue(e.target.value)}/>
+          <input type='text' placeholder='Search movie...' className='rounded md:px-1 text-black' value={searchValue} onChange={handleSearch}/>
           <button type='submit' className='text-white bg-gradient-to-b from-red-700 to-black px-1 border-transparent rounded'>Search</button>
         </form>
     </nav>
